@@ -10,7 +10,7 @@ namespace Spryker\Zed\Company\Business\Model;
 use Generated\Shared\Transfer\CompanyResponseTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
 
-interface CompanyWriterInterface
+interface CompanyInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
@@ -24,7 +24,7 @@ interface CompanyWriterInterface
      *
      * @return \Generated\Shared\Transfer\CompanyResponseTransfer
      */
-    public function update(CompanyTransfer $companyTransfer): CompanyResponseTransfer;
+    public function save(CompanyTransfer $companyTransfer): CompanyResponseTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer

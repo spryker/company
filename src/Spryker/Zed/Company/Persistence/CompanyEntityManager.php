@@ -5,14 +5,16 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Company\Persistence\Propel;
+namespace Spryker\Zed\Company\Persistence;
 
 use Generated\Shared\Transfer\CompanyTransfer;
-use Orm\Zed\Company\Persistence\SpyCompanyStore;
-use Spryker\Zed\Company\Persistence\CompanyPersistenceFactory;
-use Spryker\Zed\Company\Persistence\CompanyWriterRepositoryInterface;
+use Generated\Shared\Transfer\SpyCompanyStoreEntityTransfer;
+use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
-class CompanyWriterPropelRepository implements CompanyWriterRepositoryInterface
+/**
+ * @method \Spryker\Zed\Company\Persistence\CompanyPersistenceFactory getFactory()
+ */
+class CompanyEntityManager extends AbstractEntityManager implements CompanyEntityManagerInterface
 {
     /**
      * {@inheritdoc}
@@ -21,27 +23,30 @@ class CompanyWriterPropelRepository implements CompanyWriterRepositoryInterface
      *
      * @return \Generated\Shared\Transfer\CompanyTransfer
      */
-    public function save(CompanyTransfer $companyTransfer): CompanyTransfer
+    public function saveCompany(CompanyTransfer $companyTransfer): CompanyTransfer
     {
-        $companyEntity = $this->getFactory()->createCompanyMapper()->mapCompanyTransferToEntity($companyTransfer);
-        $companyEntity->save();
+        $entityTransfer = $this->getFactory()
+            ->createCompanyMapper()
+            ->mapCompanyTransferToEntityTransfer($companyTransfer);
+        $entityTransfer = $this->save($entityTransfer);
 
-        return $this->getFactory()->createCompanyMapper()->mapCompanyEntityToTransfer($companyEntity);
+        return $this->getFactory()
+            ->createCompanyMapper()
+            ->mapEntityTransferToCompanyTransfer($entityTransfer);
     }
 
     /**
      * {@inheritdoc}
      *
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
+     * @param int $idCompany
      *
      * @return void
      */
-    public function delete(CompanyTransfer $companyTransfer): void
+    public function deleteCompanyById(int $idCompany): void
     {
-        $companyTransfer->requireIdCompany();
         $this->getFactory()
             ->createCompanyQuery()
-            ->filterByIdCompany($companyTransfer->getIdCompany())
+            ->filterByIdCompany($idCompany)
             ->delete();
     }
 
@@ -56,10 +61,10 @@ class CompanyWriterPropelRepository implements CompanyWriterRepositoryInterface
     public function addStores(array $idStores, $idCompany): void
     {
         foreach ($idStores as $idStore) {
-            (new SpyCompanyStore())
-                ->setFkStore($idStore)
-                ->setFkCompany($idCompany)
-                ->save();
+            $companyStoreEntityTransfer = new SpyCompanyStoreEntityTransfer();
+            $companyStoreEntityTransfer->setFkCompany($idCompany)
+                ->setFkStore($idStore);
+            $this->save($companyStoreEntityTransfer);
         }
     }
 
@@ -82,15 +87,5 @@ class CompanyWriterPropelRepository implements CompanyWriterRepositoryInterface
             ->filterByFkCompany($idCompany)
             ->filterByFkStore_In($idStores)
             ->delete();
-    }
-
-    /**
-     * @TODO For removal.
-     *
-     * @return \Spryker\Zed\Company\Persistence\CompanyPersistenceFactory
-     */
-    protected function getFactory(): CompanyPersistenceFactory
-    {
-        return new CompanyPersistenceFactory();
     }
 }

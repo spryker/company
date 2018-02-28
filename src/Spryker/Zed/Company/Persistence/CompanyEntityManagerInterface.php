@@ -9,7 +9,7 @@ namespace Spryker\Zed\Company\Persistence;
 
 use Generated\Shared\Transfer\CompanyTransfer;
 
-interface CompanyWriterRepositoryInterface
+interface CompanyEntityManagerInterface
 {
     /**
      * Specification:
@@ -18,22 +18,22 @@ interface CompanyWriterRepositoryInterface
      * - Updates fields in a company entity
      * - Updates relation to stores
      *
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
+     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfeк
      *
      * @return \Generated\Shared\Transfer\CompanyTransfer
      */
-    public function save(CompanyTransfer $companyTransfer): CompanyTransfer;
+    public function saveCompany(CompanyTransfer $companyTransfeк): CompanyTransfer;
 
     /**
      * Specification:
      * - Finds a company by CompanyTransfer::idCompany in the transfer
      * - Deletes the company
      *
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
+     * @param int $idCompany
      *
      * @return void
      */
-    public function delete(CompanyTransfer $companyTransfer): void;
+    public function deleteCompanyById(int $idCompany): void;
 
     /**
      * Specification:
