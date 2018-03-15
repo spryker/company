@@ -5,9 +5,10 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Shared\Company\Code;
+namespace Spryker\Zed\Company\Business\Exception;
 
-interface Messages
+use Exception;
+
+class InvalidCompanyCreationException extends Exception
 {
-    public const COMPANY_AUTHORIZATION_SUCCESS = 'company.account.authorization.success';
 }
