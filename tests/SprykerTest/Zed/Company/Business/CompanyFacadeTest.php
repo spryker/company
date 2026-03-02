@@ -63,9 +63,6 @@ class CompanyFacadeTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testGetCompanyByIdShouldReturnTransfer(): void
     {
         // Arrange
@@ -81,9 +78,6 @@ class CompanyFacadeTest extends Unit
         $this->assertNotNull($foundCompanyTransfer->getIdCompany());
     }
 
-    /**
-     * @return void
-     */
     public function testFindCompanyByIdReturnsTransfer(): void
     {
         // Arrange
@@ -98,9 +92,6 @@ class CompanyFacadeTest extends Unit
         $this->assertNotNull($companyTransfer->getIdCompany());
     }
 
-    /**
-     * @return void
-     */
     public function testFindCompanyByIdReturnsNullWhenCompanyDoesNotExists(): void
     {
         // Arrange
@@ -114,9 +105,6 @@ class CompanyFacadeTest extends Unit
         $this->assertNull($companyTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testCreateShouldPersistCompany(): void
     {
         // Arrange
@@ -131,9 +119,6 @@ class CompanyFacadeTest extends Unit
         $this->assertNotNull($createdCompanyTransfer->getIdCompany());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateShouldPersistCompanyChanges(): void
     {
         // Arrange
@@ -155,9 +140,6 @@ class CompanyFacadeTest extends Unit
         $this->assertEquals($companyTransfer->getStatus(), $updatedCompanyTransfer->getStatus());
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteShouldRemoveCompanyFromStorage(): void
     {
         // Arrange
@@ -171,9 +153,6 @@ class CompanyFacadeTest extends Unit
         $this->assertNull($this->tester->getFacade()->findCompanyById($companyTransfer->getIdCompany()));
     }
 
-    /**
-     * @return void
-     */
     public function testCreateCompanyShouldPersistStoreRelation(): void
     {
         // Arrange
@@ -194,9 +173,6 @@ class CompanyFacadeTest extends Unit
         $this->assertCount(count($storeIds), $relatesStores);
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateCompanyShouldPersistStoreRelation(): void
     {
         // Arrange
@@ -216,9 +192,6 @@ class CompanyFacadeTest extends Unit
         $this->assertCount(1, $relatesStores);
     }
 
-    /**
-     * @return void
-     */
     public function testGetCompaniesReturnsNotEmptyCollection(): void
     {
         // Arrange
@@ -232,9 +205,6 @@ class CompanyFacadeTest extends Unit
         $this->assertGreaterThan(0, $companyTypesCollection->getCompanies()->count());
     }
 
-    /**
-     * @return void
-     */
     public function testGetCompanyCollectionByIdCompanyShouldReturnTransferObject(): void
     {
         // Arrange
@@ -259,9 +229,6 @@ class CompanyFacadeTest extends Unit
         $this->assertEquals(0, $companyCollectionFilteredByFakeId->getCompanies()->count());
     }
 
-    /**
-     * @return void
-     */
     public function testGetCompanyCollectionByNameShouldReturnTransferObject(): void
     {
         // Arrange
@@ -288,9 +255,6 @@ class CompanyFacadeTest extends Unit
         $this->assertEquals(0, $companyCollectionFilteredByFakeName->getCompanies()->count());
     }
 
-    /**
-     * @return void
-     */
     public function testGetCompanyCollectionByLowercaseNameShouldReturnTransferObject(): void
     {
         // Arrange

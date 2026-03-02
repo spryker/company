@@ -17,31 +17,16 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
  */
 class GatewayController extends AbstractGatewayController
 {
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function createAction(CompanyTransfer $companyTransfer): CompanyResponseTransfer
     {
         return $this->getFacade()->create($companyTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyTransfer
-     */
     public function getCompanyByIdAction(CompanyTransfer $companyTransfer): CompanyTransfer
     {
         return $this->getFacade()->getCompanyById($companyTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function findCompanyByUuidAction(CompanyTransfer $companyTransfer): CompanyResponseTransfer
     {
         return $this->getFacade()->findCompanyByUuid($companyTransfer);

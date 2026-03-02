@@ -11,24 +11,9 @@ use Generated\Shared\Transfer\CompanyResponseTransfer;
 
 interface CompanyPluginExecutorInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CompanyResponseTransfer $companyResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function executeCompanyPreSavePlugins(CompanyResponseTransfer $companyResponseTransfer): CompanyResponseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyResponseTransfer $companyResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function executeCompanyPostSavePlugins(CompanyResponseTransfer $companyResponseTransfer): CompanyResponseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyResponseTransfer $companyResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function executeCompanyPostCreatePlugins(CompanyResponseTransfer $companyResponseTransfer): CompanyResponseTransfer;
 }

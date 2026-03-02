@@ -20,25 +20,16 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
  */
 class CompanyPersistenceFactory extends AbstractPersistenceFactory
 {
-    /**
-     * @return \Orm\Zed\Company\Persistence\SpyCompanyQuery
-     */
     public function createCompanyQuery(): SpyCompanyQuery
     {
         return SpyCompanyQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Company\Persistence\SpyCompanyStoreQuery
-     */
     public function createCompanyStoreQuery(): SpyCompanyStoreQuery
     {
         return SpyCompanyStoreQuery::create();
     }
 
-    /**
-     * @return \Spryker\Zed\Company\Persistence\Mapper\CompanyMapperInterface
-     */
     public function createCompanyMapper(): CompanyMapperInterface
     {
         return new CompanyMapper();

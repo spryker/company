@@ -65,11 +65,6 @@ class CompanyRepository extends AbstractRepository implements CompanyRepositoryI
             ->mapEntityToCompanyTransfer($spyCompany, new CompanyTransfer());
     }
 
-    /**
-     * @param int $idCompany
-     *
-     * @return \Generated\Shared\Transfer\CompanyTransfer|null
-     */
     public function findCompanyById(int $idCompany): ?CompanyTransfer
     {
         $companyEntity = $this->getFactory()
@@ -104,11 +99,6 @@ class CompanyRepository extends AbstractRepository implements CompanyRepositoryI
         return $companyTypeCollection;
     }
 
-    /**
-     * @param string $companyUuid
-     *
-     * @return \Generated\Shared\Transfer\CompanyTransfer|null
-     */
     public function findCompanyByUuid(string $companyUuid): ?CompanyTransfer
     {
         $companyEntity = $this->getFactory()
@@ -125,11 +115,6 @@ class CompanyRepository extends AbstractRepository implements CompanyRepositoryI
             ->mapEntityToCompanyTransfer($companyEntity, new CompanyTransfer());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyCriteriaFilterTransfer $companyCriteriaFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyCollectionTransfer
-     */
     public function getCompanyCollection(CompanyCriteriaFilterTransfer $companyCriteriaFilterTransfer): CompanyCollectionTransfer
     {
         $companyQuery = $this->getFactory()
@@ -145,12 +130,6 @@ class CompanyRepository extends AbstractRepository implements CompanyRepositoryI
             ->mapCompanyEntityCollectionToCompanyCollectionTransfer($companyQuery->find());
     }
 
-    /**
-     * @param \Orm\Zed\Company\Persistence\SpyCompanyQuery $companyQuery
-     * @param \Generated\Shared\Transfer\CompanyCriteriaFilterTransfer $companyCriteriaFilterTransfer
-     *
-     * @return \Orm\Zed\Company\Persistence\SpyCompanyQuery
-     */
     protected function setCompanyFilters(
         SpyCompanyQuery $companyQuery,
         CompanyCriteriaFilterTransfer $companyCriteriaFilterTransfer

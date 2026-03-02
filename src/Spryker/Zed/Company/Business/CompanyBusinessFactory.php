@@ -28,9 +28,6 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class CompanyBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \Spryker\Zed\Company\Business\Model\CompanyInterface
-     */
     public function createCompany(): CompanyInterface
     {
         return new Company(
@@ -41,25 +38,16 @@ class CompanyBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Company\Dependency\Facade\CompanyToStoreFacadeInterface
-     */
     public function getStoreFacade(): CompanyToStoreFacadeInterface
     {
         return $this->getProvidedDependency(CompanyDependencyProvider::FACADE_STORE);
     }
 
-    /**
-     * @return \Spryker\Zed\Company\Business\Reader\CompanyReaderInterface
-     */
     public function createCompanyReader(): CompanyReaderInterface
     {
         return new CompanyReader($this->getRepository());
     }
 
-    /**
-     * @return \Spryker\Zed\Company\Business\Model\CompanyStoreRelationWriterInterface
-     */
     protected function createStoreRelationWriter(): CompanyStoreRelationWriterInterface
     {
         return new CompanyStoreRelationWriter(
@@ -68,17 +56,11 @@ class CompanyBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Company\Business\Model\CompanyStoreRelationReaderInterface
-     */
     protected function createCompanyStoreRelationReader(): CompanyStoreRelationReaderInterface
     {
         return new CompanyStoreRelationReader($this->getRepository());
     }
 
-    /**
-     * @return \Spryker\Zed\Company\Business\Model\CompanyPluginExecutorInterface
-     */
     protected function createPluginExecutor(): CompanyPluginExecutorInterface
     {
         return new CompanyPluginExecutor(

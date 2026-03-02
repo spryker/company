@@ -12,24 +12,9 @@ use Generated\Shared\Transfer\CompanyTransfer;
 
 interface CompanyInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function create(CompanyTransfer $companyTransfer): CompanyResponseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function save(CompanyTransfer $companyTransfer): CompanyResponseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return void
-     */
     public function delete(CompanyTransfer $companyTransfer): void;
 }

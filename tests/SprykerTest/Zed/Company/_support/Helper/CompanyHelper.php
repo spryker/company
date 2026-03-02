@@ -26,11 +26,6 @@ class CompanyHelper extends Module
      */
     protected const STATUS_APPROVED = 'approved';
 
-    /**
-     * @param array $seedData
-     *
-     * @return \Generated\Shared\Transfer\CompanyTransfer
-     */
     public function haveCompany(array $seedData = []): CompanyTransfer
     {
         $companyTransfer = (new CompanyBuilder($seedData))->build();
@@ -39,11 +34,6 @@ class CompanyHelper extends Module
         return $this->getLocator()->company()->facade()->create($companyTransfer)->getCompanyTransfer();
     }
 
-    /**
-     * @param array $seedData
-     *
-     * @return \Generated\Shared\Transfer\CompanyTransfer
-     */
     public function haveActiveCompanyWithUser(array $seedData = []): CompanyTransfer
     {
         $seedData[CompanyTransfer::IS_ACTIVE] = true;
@@ -63,11 +53,6 @@ class CompanyHelper extends Module
         return $this->getLocator()->company()->facade()->create($companyTransfer)->getCompanyTransfer();
     }
 
-    /**
-     * @param array $seedData
-     *
-     * @return \Generated\Shared\Transfer\CompanyTransfer
-     */
     public function haveActiveCompany(array $seedData = []): CompanyTransfer
     {
         $seedData[CompanyTransfer::IS_ACTIVE] = true;
@@ -75,11 +60,6 @@ class CompanyHelper extends Module
         return $this->haveCompany($seedData);
     }
 
-    /**
-     * @param array $seedData
-     *
-     * @return \Generated\Shared\Transfer\CompanyTransfer
-     */
     public function haveInactiveCompany(array $seedData = []): CompanyTransfer
     {
         $seedData[CompanyTransfer::IS_ACTIVE] = false;

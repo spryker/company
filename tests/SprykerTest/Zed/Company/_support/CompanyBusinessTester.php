@@ -41,9 +41,6 @@ class CompanyBusinessTester extends Actor
             ->getRelatedStoresByCompanyId($idCompany);
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getCurrentStore(): StoreTransfer
     {
         return $this->getLocator()->store()->facade()->getCurrentStore();

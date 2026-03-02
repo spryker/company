@@ -41,11 +41,6 @@ class CompanyPluginExecutor implements CompanyPluginExecutorInterface
         $this->companyPostSavePlugins = $companyPostSavePlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyResponseTransfer $companyResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function executeCompanyPreSavePlugins(CompanyResponseTransfer $companyResponseTransfer): CompanyResponseTransfer
     {
         foreach ($this->companyPreSavePlugins as $companyPreSavePlugin) {
@@ -55,11 +50,6 @@ class CompanyPluginExecutor implements CompanyPluginExecutorInterface
         return $companyResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyResponseTransfer $companyResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function executeCompanyPostSavePlugins(CompanyResponseTransfer $companyResponseTransfer): CompanyResponseTransfer
     {
         foreach ($this->companyPostSavePlugins as $companyPostSavePlugin) {
@@ -69,11 +59,6 @@ class CompanyPluginExecutor implements CompanyPluginExecutorInterface
         return $companyResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyResponseTransfer $companyResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function executeCompanyPostCreatePlugins(CompanyResponseTransfer $companyResponseTransfer): CompanyResponseTransfer
     {
         foreach ($this->companyPostCreatePlugins as $companyPostCreatePlugin) {

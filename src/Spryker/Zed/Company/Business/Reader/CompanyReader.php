@@ -18,19 +18,11 @@ class CompanyReader implements CompanyReaderInterface
      */
     protected $companyRepository;
 
-    /**
-     * @param \Spryker\Zed\Company\Persistence\CompanyRepositoryInterface $companyRepository
-     */
     public function __construct(CompanyRepositoryInterface $companyRepository)
     {
         $this->companyRepository = $companyRepository;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function findCompanyByUuid(CompanyTransfer $companyTransfer): CompanyResponseTransfer
     {
         $companyTransfer->requireUuid();

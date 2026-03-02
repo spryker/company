@@ -14,17 +14,11 @@ use Spryker\Client\Kernel\AbstractFactory;
 
 class CompanyFactory extends AbstractFactory
 {
-    /**
-     * @return \Spryker\Client\Company\Zed\CompanyStubInterface
-     */
     public function createZedCompanyStub(): CompanyStubInterface
     {
         return new CompanyStub($this->getZedRequestClient());
     }
 
-    /**
-     * @return \Spryker\Client\Company\Dependency\Client\CompanyToZedRequestClientInterface
-     */
     protected function getZedRequestClient(): CompanyToZedRequestClientInterface
     {
         return $this->getProvidedDependency(CompanyDependencyProvider::CLIENT_ZED_REQUEST);

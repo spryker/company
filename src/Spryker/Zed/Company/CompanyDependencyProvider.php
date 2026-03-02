@@ -36,11 +36,6 @@ class CompanyDependencyProvider extends AbstractBundleDependencyProvider
      */
     public const COMPANY_POST_CREATE_PLUGINS = 'COMPANY_POST_CREATE_PLUGINS';
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
@@ -53,11 +48,6 @@ class CompanyDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStoreFacade(Container $container): Container
     {
         $container->set(static::FACADE_STORE, function (Container $container) {
@@ -67,11 +57,6 @@ class CompanyDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCompanyPreSavePlugins(Container $container): Container
     {
         $container->set(static::COMPANY_PRE_SAVE_PLUGINS, function () {
@@ -81,11 +66,6 @@ class CompanyDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCompanyPostSavePlugins(Container $container): Container
     {
         $container->set(static::COMPANY_POST_SAVE_PLUGINS, function () {
@@ -95,11 +75,6 @@ class CompanyDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCompanyPostCreatePlugins(Container $container): Container
     {
         $container->set(static::COMPANY_POST_CREATE_PLUGINS, function () {

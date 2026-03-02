@@ -14,12 +14,6 @@ use Propel\Runtime\Collection\Collection;
 
 class CompanyMapper implements CompanyMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     * @param \Orm\Zed\Company\Persistence\SpyCompany $spyCompany
-     *
-     * @return \Orm\Zed\Company\Persistence\SpyCompany
-     */
     public function mapCompanyTransferToEntity(
         CompanyTransfer $companyTransfer,
         SpyCompany $spyCompany
@@ -31,12 +25,6 @@ class CompanyMapper implements CompanyMapperInterface
         return $spyCompany;
     }
 
-    /**
-     * @param \Orm\Zed\Company\Persistence\SpyCompany $spyCompany
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyTransfer
-     */
     public function mapEntityToCompanyTransfer(
         SpyCompany $spyCompany,
         CompanyTransfer $companyTransfer

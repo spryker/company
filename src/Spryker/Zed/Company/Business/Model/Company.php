@@ -38,12 +38,6 @@ class Company implements CompanyInterface
      */
     protected $companyStoreRelationWriter;
 
-    /**
-     * @param \Spryker\Zed\Company\Persistence\CompanyRepositoryInterface $companyRepository
-     * @param \Spryker\Zed\Company\Persistence\CompanyEntityManagerInterface $companyEntityManager
-     * @param \Spryker\Zed\Company\Business\Model\CompanyPluginExecutorInterface $companyPluginExecutor
-     * @param \Spryker\Zed\Company\Business\Model\CompanyStoreRelationWriterInterface $companyStoreRelationWriter
-     */
     public function __construct(
         CompanyRepositoryInterface $companyRepository,
         CompanyEntityManagerInterface $companyEntityManager,
@@ -56,11 +50,6 @@ class Company implements CompanyInterface
         $this->companyStoreRelationWriter = $companyStoreRelationWriter;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function create(CompanyTransfer $companyTransfer): CompanyResponseTransfer
     {
         $companyResponseTransfer = (new CompanyResponseTransfer())
@@ -85,11 +74,6 @@ class Company implements CompanyInterface
         return $companyResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function save(CompanyTransfer $companyTransfer): CompanyResponseTransfer
     {
         $companyResponseTransfer = (new CompanyResponseTransfer())
@@ -101,22 +85,12 @@ class Company implements CompanyInterface
         });
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return void
-     */
     public function delete(CompanyTransfer $companyTransfer): void
     {
         $companyTransfer->requireIdCompany();
         $this->companyEntityManager->deleteCompanyById($companyTransfer->getIdCompany());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyResponseTransfer $companyResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     protected function executeSaveCompanyTransaction(CompanyResponseTransfer $companyResponseTransfer): CompanyResponseTransfer
     {
         $companyResponseTransfer = $this->companyPluginExecutor->executeCompanyPreSavePlugins($companyResponseTransfer);
@@ -135,11 +109,6 @@ class Company implements CompanyInterface
         return $companyResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyResponseTransfer $companyResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     protected function executePostCreatePlugins(CompanyResponseTransfer $companyResponseTransfer): CompanyResponseTransfer
     {
         $companyResponseTransfer = $this->companyPluginExecutor->executeCompanyPostCreatePlugins($companyResponseTransfer);
@@ -147,11 +116,6 @@ class Company implements CompanyInterface
         return $companyResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return void
-     */
     protected function persistStoreRelations(CompanyTransfer $companyTransfer): void
     {
         if ($companyTransfer->getStoreRelation() !== null) {

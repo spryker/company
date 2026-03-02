@@ -18,19 +18,11 @@ class CompanyStub implements CompanyStubInterface
      */
     protected $zedRequestClient;
 
-    /**
-     * @param \Spryker\Client\Company\Dependency\Client\CompanyToZedRequestClientInterface $zedRequestClient
-     */
     public function __construct(CompanyToZedRequestClientInterface $zedRequestClient)
     {
         $this->zedRequestClient = $zedRequestClient;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function createCompany(CompanyTransfer $companyTransfer): CompanyResponseTransfer
     {
         /** @var \Generated\Shared\Transfer\CompanyResponseTransfer $companyResponseTransfer */
@@ -39,11 +31,6 @@ class CompanyStub implements CompanyStubInterface
         return $companyResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyTransfer
-     */
     public function getCompanyById(CompanyTransfer $companyTransfer): CompanyTransfer
     {
         /** @var \Generated\Shared\Transfer\CompanyTransfer $companyTransfer */
@@ -52,11 +39,6 @@ class CompanyStub implements CompanyStubInterface
         return $companyTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CompanyTransfer $companyTransfer
-     *
-     * @return \Generated\Shared\Transfer\CompanyResponseTransfer
-     */
     public function findCompanyByUuid(CompanyTransfer $companyTransfer): CompanyResponseTransfer
     {
         /** @var \Generated\Shared\Transfer\CompanyResponseTransfer $companyResponseTransfer */

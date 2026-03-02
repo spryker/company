@@ -19,19 +19,11 @@ class CompanyStoreRelationReader implements CompanyStoreRelationReaderInterface
      */
     protected $companyRepository;
 
-    /**
-     * @param \Spryker\Zed\Company\Persistence\CompanyRepositoryInterface $companyRepository
-     */
     public function __construct(CompanyRepositoryInterface $companyRepository)
     {
         $this->companyRepository = $companyRepository;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreRelationTransfer $storeRelationTransfer
-     *
-     * @return \Generated\Shared\Transfer\StoreRelationTransfer
-     */
     public function getStoreRelation(StoreRelationTransfer $storeRelationTransfer): StoreRelationTransfer
     {
         $storeRelationTransfer->requireIdEntity();

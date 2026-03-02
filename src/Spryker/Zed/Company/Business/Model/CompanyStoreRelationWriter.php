@@ -22,10 +22,6 @@ class CompanyStoreRelationWriter implements CompanyStoreRelationWriterInterface
      */
     protected $companyStoreRelationReader;
 
-    /**
-     * @param \Spryker\Zed\Company\Persistence\CompanyEntityManagerInterface $companyEntityManager
-     * @param \Spryker\Zed\Company\Business\Model\CompanyStoreRelationReaderInterface $companyStoreRelationReader
-     */
     public function __construct(
         CompanyEntityManagerInterface $companyEntityManager,
         CompanyStoreRelationReaderInterface $companyStoreRelationReader
@@ -34,11 +30,6 @@ class CompanyStoreRelationWriter implements CompanyStoreRelationWriterInterface
         $this->companyStoreRelationReader = $companyStoreRelationReader;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreRelationTransfer|null $storeRelationTransfer
-     *
-     * @return void
-     */
     public function save(?StoreRelationTransfer $storeRelationTransfer = null): void
     {
         if ($storeRelationTransfer === null) {
