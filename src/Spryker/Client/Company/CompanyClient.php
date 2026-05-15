@@ -7,6 +7,8 @@
 
 namespace Spryker\Client\Company;
 
+use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyCriteriaFilterTransfer;
 use Generated\Shared\Transfer\CompanyResponseTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
 use Spryker\Client\Kernel\AbstractClient;
@@ -64,5 +66,12 @@ class CompanyClient extends AbstractClient implements CompanyClientInterface
         return $this->getFactory()
             ->createZedCompanyStub()
             ->findCompanyByUuid($companyTransfer);
+    }
+
+    public function getCompanyCollection(CompanyCriteriaFilterTransfer $companyCriteriaFilterTransfer): CompanyCollectionTransfer
+    {
+        return $this->getFactory()
+            ->createZedCompanyStub()
+            ->getCompanyCollection($companyCriteriaFilterTransfer);
     }
 }

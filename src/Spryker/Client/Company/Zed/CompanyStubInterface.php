@@ -7,6 +7,8 @@
 
 namespace Spryker\Client\Company\Zed;
 
+use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyCriteriaFilterTransfer;
 use Generated\Shared\Transfer\CompanyResponseTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
 
@@ -17,4 +19,6 @@ interface CompanyStubInterface
     public function getCompanyById(CompanyTransfer $companyTransfer): CompanyTransfer;
 
     public function findCompanyByUuid(CompanyTransfer $companyTransfer): CompanyResponseTransfer;
+
+    public function getCompanyCollection(CompanyCriteriaFilterTransfer $companyCriteriaFilterTransfer): CompanyCollectionTransfer;
 }

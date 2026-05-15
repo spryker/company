@@ -7,6 +7,8 @@
 
 namespace Spryker\Zed\Company\Communication\Controller;
 
+use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyCriteriaFilterTransfer;
 use Generated\Shared\Transfer\CompanyResponseTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
@@ -30,5 +32,10 @@ class GatewayController extends AbstractGatewayController
     public function findCompanyByUuidAction(CompanyTransfer $companyTransfer): CompanyResponseTransfer
     {
         return $this->getFacade()->findCompanyByUuid($companyTransfer);
+    }
+
+    public function getCompanyCollectionAction(CompanyCriteriaFilterTransfer $companyCriteriaFilterTransfer): CompanyCollectionTransfer
+    {
+        return $this->getFacade()->getCompanyCollection($companyCriteriaFilterTransfer);
     }
 }

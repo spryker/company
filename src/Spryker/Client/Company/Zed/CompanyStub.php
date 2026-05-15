@@ -7,6 +7,8 @@
 
 namespace Spryker\Client\Company\Zed;
 
+use Generated\Shared\Transfer\CompanyCollectionTransfer;
+use Generated\Shared\Transfer\CompanyCriteriaFilterTransfer;
 use Generated\Shared\Transfer\CompanyResponseTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
 use Spryker\Client\Company\Dependency\Client\CompanyToZedRequestClientInterface;
@@ -45,5 +47,16 @@ class CompanyStub implements CompanyStubInterface
         $companyResponseTransfer = $this->zedRequestClient->call('/company/gateway/find-company-by-uuid', $companyTransfer);
 
         return $companyResponseTransfer;
+    }
+
+    public function getCompanyCollection(CompanyCriteriaFilterTransfer $companyCriteriaFilterTransfer): CompanyCollectionTransfer
+    {
+        /** @var \Generated\Shared\Transfer\CompanyCollectionTransfer $companyCollectionTransfer */
+        $companyCollectionTransfer = $this->zedRequestClient->call(
+            '/company/gateway/get-company-collection',
+            $companyCriteriaFilterTransfer,
+        );
+
+        return $companyCollectionTransfer;
     }
 }
