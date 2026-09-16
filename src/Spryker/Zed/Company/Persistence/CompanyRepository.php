@@ -11,7 +11,9 @@ use ArrayObject;
 use Generated\Shared\Transfer\CompanyCollectionTransfer;
 use Generated\Shared\Transfer\CompanyCriteriaFilterTransfer;
 use Generated\Shared\Transfer\CompanyTransfer;
+use Generated\Shared\Transfer\PaginationTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
+use Orm\Zed\Company\Persistence\Map\SpyCompanyTableMap;
 use Orm\Zed\Company\Persistence\SpyCompanyQuery;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -125,9 +127,65 @@ class CompanyRepository extends AbstractRepository implements CompanyRepositoryI
             $companyCriteriaFilterTransfer,
         );
 
-        return $this->getFactory()
+        $companyQuery = $this->applySortToQuery($companyQuery, $companyCriteriaFilterTransfer);
+
+        $paginationTransfer = $companyCriteriaFilterTransfer->getPagination();
+        $companyQuery = $this->applyPagination($companyQuery, $paginationTransfer);
+
+        $companyCollectionTransfer = $this->getFactory()
             ->createCompanyMapper()
             ->mapCompanyEntityCollectionToCompanyCollectionTransfer($companyQuery->find());
+
+        return $companyCollectionTransfer->setPagination($paginationTransfer);
+    }
+
+    protected function applySortToQuery(
+        SpyCompanyQuery $companyQuery,
+        CompanyCriteriaFilterTransfer $companyCriteriaFilterTransfer
+    ): SpyCompanyQuery {
+        $sortableFieldMap = $this->getFactory()->getConfig()->getCompanyCollectionSortableFieldMap();
+
+        foreach ($companyCriteriaFilterTransfer->getSortCollection() as $sortTransfer) {
+            $column = $sortableFieldMap[$sortTransfer->getField()] ?? null;
+
+            if ($column === null) {
+                continue;
+            }
+
+            $companyQuery->orderBy($column, $sortTransfer->getIsAscending() === false ? Criteria::DESC : Criteria::ASC);
+        }
+
+        $companyQuery->orderBy(SpyCompanyTableMap::COL_ID_COMPANY, Criteria::DESC);
+
+        return $companyQuery;
+    }
+
+    protected function applyPagination(
+        SpyCompanyQuery $companyQuery,
+        ?PaginationTransfer $paginationTransfer
+    ): SpyCompanyQuery {
+        if ($paginationTransfer === null) {
+            return $companyQuery;
+        }
+
+        $paginationModel = $companyQuery->paginate(
+            $paginationTransfer->requirePage()->getPage(),
+            $paginationTransfer->requireMaxPerPage()->getMaxPerPage(),
+        );
+
+        $paginationTransfer->setPage($paginationModel->getPage());
+        $paginationTransfer->setNbResults($paginationModel->getNbResults());
+        $paginationTransfer->setFirstIndex($paginationModel->getFirstIndex());
+        $paginationTransfer->setLastIndex($paginationModel->getLastIndex());
+        $paginationTransfer->setFirstPage($paginationModel->getFirstPage());
+        $paginationTransfer->setLastPage($paginationModel->getLastPage());
+        $paginationTransfer->setNextPage($paginationModel->getNextPage());
+        $paginationTransfer->setPreviousPage($paginationModel->getPreviousPage());
+
+        /** @var \Orm\Zed\Company\Persistence\SpyCompanyQuery $paginatedCompanyQuery */
+        $paginatedCompanyQuery = $paginationModel->getQuery();
+
+        return $paginatedCompanyQuery;
     }
 
     protected function setCompanyFilters(
@@ -142,13 +200,25 @@ class CompanyRepository extends AbstractRepository implements CompanyRepositoryI
             $companyQuery->filterByIdCompany_In($companyCriteriaFilterTransfer->getCompanyIds());
         }
 
-        if ($companyCriteriaFilterTransfer->getName()) {
-            $companyQuery->filterByName(sprintf('%%%s%%', $companyCriteriaFilterTransfer->getName()), Criteria::LIKE);
+        $name = $companyCriteriaFilterTransfer->getName();
+
+        if ($name !== null && $name !== '') {
+            $companyQuery->filterByName(sprintf('%%%s%%', $name), Criteria::LIKE);
             $companyQuery->setIgnoreCase(true);
         }
 
-        if ($companyCriteriaFilterTransfer->getFilter() && $companyCriteriaFilterTransfer->getFilter()->getLimit()) {
-            $companyQuery->limit($companyCriteriaFilterTransfer->getFilter()->getLimit());
+        $filterTransfer = $companyCriteriaFilterTransfer->getFilter();
+
+        if ($filterTransfer === null) {
+            return $companyQuery;
+        }
+
+        if ($filterTransfer->getLimit()) {
+            $companyQuery->limit($filterTransfer->getLimit());
+        }
+
+        if ($filterTransfer->getOffset()) {
+            $companyQuery->offset($filterTransfer->getOffset());
         }
 
         return $companyQuery;
