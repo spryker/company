@@ -7,6 +7,8 @@
 
 namespace Spryker\Zed\Company\Business;
 
+use Spryker\Zed\Company\Business\CompanyUserValidator\CompanyUserValidator;
+use Spryker\Zed\Company\Business\CompanyUserValidator\CompanyUserValidatorInterface;
 use Spryker\Zed\Company\Business\Model\Company;
 use Spryker\Zed\Company\Business\Model\CompanyInterface;
 use Spryker\Zed\Company\Business\Model\CompanyPluginExecutor;
@@ -48,7 +50,7 @@ class CompanyBusinessFactory extends AbstractBusinessFactory
         return new CompanyReader($this->getRepository());
     }
 
-    protected function createStoreRelationWriter(): CompanyStoreRelationWriterInterface
+    public function createStoreRelationWriter(): CompanyStoreRelationWriterInterface
     {
         return new CompanyStoreRelationWriter(
             $this->getEntityManager(),
@@ -56,12 +58,12 @@ class CompanyBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    protected function createCompanyStoreRelationReader(): CompanyStoreRelationReaderInterface
+    public function createCompanyStoreRelationReader(): CompanyStoreRelationReaderInterface
     {
         return new CompanyStoreRelationReader($this->getRepository());
     }
 
-    protected function createPluginExecutor(): CompanyPluginExecutorInterface
+    public function createPluginExecutor(): CompanyPluginExecutorInterface
     {
         return new CompanyPluginExecutor(
             $this->getCompanyPreSavePlugins(),
@@ -73,7 +75,7 @@ class CompanyBusinessFactory extends AbstractBusinessFactory
     /**
      * @return array<\Spryker\Zed\CompanyExtension\Dependency\Plugin\CompanyPreSavePluginInterface>
      */
-    protected function getCompanyPreSavePlugins(): array
+    public function getCompanyPreSavePlugins(): array
     {
         return $this->getProvidedDependency(CompanyDependencyProvider::COMPANY_PRE_SAVE_PLUGINS);
     }
@@ -81,7 +83,7 @@ class CompanyBusinessFactory extends AbstractBusinessFactory
     /**
      * @return array<\Spryker\Zed\CompanyExtension\Dependency\Plugin\CompanyPostSavePluginInterface>
      */
-    protected function getCompanyPostSavePlugins(): array
+    public function getCompanyPostSavePlugins(): array
     {
         return $this->getProvidedDependency(CompanyDependencyProvider::COMPANY_POST_SAVE_PLUGINS);
     }
@@ -89,8 +91,15 @@ class CompanyBusinessFactory extends AbstractBusinessFactory
     /**
      * @return array<\Spryker\Zed\CompanyExtension\Dependency\Plugin\CompanyPostCreatePluginInterface>
      */
-    protected function getCompanyPostCreatePlugins(): array
+    public function getCompanyPostCreatePlugins(): array
     {
         return $this->getProvidedDependency(CompanyDependencyProvider::COMPANY_POST_CREATE_PLUGINS);
+    }
+
+    public function createCompanyUserValidator(): CompanyUserValidatorInterface
+    {
+        return new CompanyUserValidator(
+            $this->getRepository(),
+        );
     }
 }
