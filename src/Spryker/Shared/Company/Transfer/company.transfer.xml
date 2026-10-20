@@ -52,6 +52,7 @@
         <property name="companyIds" type="int[]" singular="companyId"/>
         <property name="pagination" type="Pagination"/>
         <property name="sortCollection" type="Sort[]" singular="sort"/>
+        <property name="uuids" type="string[]" singular="uuid"/>
     </transfer>
 
     <transfer name="Filter">

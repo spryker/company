@@ -58,6 +58,8 @@ class CompanyFacadeTest extends Unit
      */
     protected const STORE_NAME_DE = 'DE';
 
+    protected const string UNKNOWN_UUID = '11111111-2222-4333-8444-555555555555';
+
     /**
      * @var \SprykerTest\Zed\Company\CompanyBusinessTester
      */
@@ -279,5 +281,75 @@ class CompanyFacadeTest extends Unit
         // Assert
         $this->assertEquals(1, $companyCollectionFilteredByName->getCompanies()->count());
         $this->assertEquals(0, $companyCollectionFilteredByFakeName->getCompanies()->count());
+    }
+
+    public function testGetCompanyCollectionByUuidsReturnsOnlyTheCompaniesWithTheGivenUuids(): void
+    {
+        // Arrange
+        $firstCompanyTransfer = $this->tester->haveCompany();
+        $secondCompanyTransfer = $this->tester->haveCompany();
+        $this->tester->haveCompany();
+
+        // Act
+        $companyCollectionTransfer = $this->tester->getFacade()->getCompanyCollection(
+            (new CompanyCriteriaFilterTransfer())
+                ->setUuids([$firstCompanyTransfer->getUuidOrFail(), $secondCompanyTransfer->getUuidOrFail()]),
+        );
+
+        // Assert
+        $this->assertSame(
+            [$firstCompanyTransfer->getIdCompanyOrFail(), $secondCompanyTransfer->getIdCompanyOrFail()],
+            $this->getSortedCompanyIds($companyCollectionTransfer->getCompanies()->getArrayCopy()),
+        );
+    }
+
+    public function testGetCompanyCollectionByUnknownUuidReturnsAnEmptyCollection(): void
+    {
+        // Arrange
+        $this->tester->haveCompany();
+
+        // Act
+        $companyCollectionTransfer = $this->tester->getFacade()->getCompanyCollection(
+            (new CompanyCriteriaFilterTransfer())->setUuids([static::UNKNOWN_UUID]),
+        );
+
+        // Assert
+        $this->assertCount(0, $companyCollectionTransfer->getCompanies());
+    }
+
+    public function testGetCompanyCollectionByUuidsAndNameReturnsOnlyTheCompaniesMatchingBoth(): void
+    {
+        // Arrange
+        $namedCompanyTransfer = $this->tester->haveCompany([CompanyTransfer::NAME => static::TEST_NAME]);
+        $otherCompanyTransfer = $this->tester->haveCompany();
+
+        // Act
+        $companyCollectionTransfer = $this->tester->getFacade()->getCompanyCollection(
+            (new CompanyCriteriaFilterTransfer())
+                ->setUuids([$namedCompanyTransfer->getUuidOrFail(), $otherCompanyTransfer->getUuidOrFail()])
+                ->setName(static::TEST_NAME),
+        );
+
+        // Assert
+        $this->assertSame(
+            [$namedCompanyTransfer->getIdCompanyOrFail()],
+            $this->getSortedCompanyIds($companyCollectionTransfer->getCompanies()->getArrayCopy()),
+        );
+    }
+
+    /**
+     * @param array<\Generated\Shared\Transfer\CompanyTransfer> $companyTransfers
+     *
+     * @return list<int>
+     */
+    protected function getSortedCompanyIds(array $companyTransfers): array
+    {
+        $companyIds = array_map(
+            fn (CompanyTransfer $companyTransfer): int => $companyTransfer->getIdCompanyOrFail(),
+            array_values($companyTransfers),
+        );
+        sort($companyIds);
+
+        return $companyIds;
     }
 }

@@ -200,6 +200,13 @@ class CompanyRepository extends AbstractRepository implements CompanyRepositoryI
             $companyQuery->filterByIdCompany_In($companyCriteriaFilterTransfer->getCompanyIds());
         }
 
+        $uuids = $companyCriteriaFilterTransfer->getUuids();
+
+        /** @phpstan-ignore function.alreadyNarrowedType */
+        if ($uuids !== [] && method_exists($companyQuery, 'filterByUuid_In')) {
+            $companyQuery->filterByUuid_In($uuids);
+        }
+
         $name = $companyCriteriaFilterTransfer->getName();
 
         if ($name !== null && $name !== '') {

@@ -108,6 +108,8 @@ interface CompanyFacadeInterface
      * - Retrieves company entities filtered by criteria from Persistence.
      * - Uses `CompanyCriteriaFilterTransfer.idCompany` to filter by specific company ID.
      * - Uses `CompanyCriteriaFilterTransfer.companyIds` to filter by multiple company IDs.
+     * - Uses `CompanyCriteriaFilterTransfer.uuids` to filter by multiple company uuids, only while the `spy_company.uuid`
+     *   column is installed, as that column comes from an optional schema extension rather than from this module.
      * - Uses `CompanyCriteriaFilterTransfer.name` to filter companies by name (case-insensitive partial match).
      * - Uses `CompanyCriteriaFilterTransfer.filter.limit` to limit the number of results.
      * - Returns `CompanyCollectionTransfer` containing filtered company data.
